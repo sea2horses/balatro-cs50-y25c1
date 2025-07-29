@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balatro Y25C1 | Docs del CS50x.ni</title>
+    <link rel="stylesheet" href="dashicons.css"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: "ETmodules";
+            src: url("https://db.onlinewebfonts.com/t/9d25ea5c587d0f9d470aa9a3634735ea.eot");
+            src: url("https://db.onlinewebfonts.com/t/9d25ea5c587d0f9d470aa9a3634735ea.eot?#iefix")format("embedded-opentype"),
+                url("https://db.onlinewebfonts.com/t/9d25ea5c587d0f9d470aa9a3634735ea.woff2")format("woff2"),
+                url("https://db.onlinewebfonts.com/t/9d25ea5c587d0f9d470aa9a3634735ea.woff")format("woff"),
+                url("https://db.onlinewebfonts.com/t/9d25ea5c587d0f9d470aa9a3634735ea.ttf")format("truetype"),
+                url("https://db.onlinewebfonts.com/t/9d25ea5c587d0f9d470aa9a3634735ea.svg#ETmoudles")format("svg");
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+
+            display: grid;
+            grid-template-rows: 32px 1fr;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #main-header {
+            background-color: #1d2327;
+            color: #c3c4c7;
+            text-align: center;
+            height: 32px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        }
+
+        #main-header a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        #page-body {
+            display: grid;
+            grid-template-columns: 225px 1fr;
+            height: 100vh;
+        }
+
+        #sidebar {
+            box-shadow: 0 0 7px rgba(0, 0, 0, .1);
+            width: 100%;
+        }
+
+        #logo-container {
+            padding: 40px 40px 0px 40px;
+        }
+
+        #logo {
+            margin-bottom: 16px;
+        }
+
+        #navbar {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            margin: 0px;
+            margin-bottom: 48px;
+            padding: 0px;
+        }
+
+        #navbar .navbar-link {
+            text-align: center;
+            letter-spacing: 2px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        #navbar .navbar-link a {
+            color: #000000;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+            padding-bottom: 19px;
+            transition: opacity .4s ease-in-out;
+            height: 33px;
+        }
+
+        #navbar .navbar-link a:hover {
+            opacity: 0.7;
+        }
+
+        .navbar-link.nb-has-children a:after {
+            font-family: 'ETmodules';
+            content: "3";
+            font-size: 16px;
+            position: absolute;
+            left: 187px;
+            translate: 0px 1px;
+            font-weight: 800;
+        }
+
+        #boton-principal {
+
+            background: #FF793F;
+
+            margin: 0px 1px 0px 2px;
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #boton-principal a {
+            color: #fff !important;
+            padding: 15px 25px 15px 25px !important;
+            width: 222px !important;
+            text-align: center;
+            font-size: 15.9px;
+            letter-spacing: 2px;
+            line-height: 0.9em;
+        }
+
+        #main-content {
+            overflow-y: scroll;
+            overflow-x: scroll;
+        }
+
+        #main-content .container {
+            padding: 52px 0px;
+            margin: auto;
+            margin-bottom: 150px;
+            width: 80%;
+            max-width: 1080px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #a51c30;
+        }
+
+        .pset-mainheader {
+            font-size: 300%;
+        }
+
+        .psetheader {
+            line-height: 1.4;
+            font-weight: 500;
+            font-family: Georgia, "URW Bookman L", Helvetica, Arial, sans-serif;
+            color: #ba3925 !important;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        .separador {
+            border-top: 3px double #ebebeb;
+            margin: 2em 0;
+        }
+
+        pre,
+        code {
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            ;
+        }
+
+        code {
+            font-family: Consolas, "Liberation Mono", Courier, monospace;
+            font-weight: normal;
+            color: #6d180b;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        code span {
+            text-decoration: underline;
+        }
+
+        pre {
+            background: none;
+            border-width: 1px 0;
+            border-style: dotted;
+            border-color: #bfbfbf;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            padding: 0.75em 0.75em 0.5em 0.75em;
+            word-wrap: break-word;
+            overflow: auto;
+        }
+
+        #main-footer {
+            background-color: #565656;
+            color: white;
+            text-align: left;
+            padding: 15px 15px;
+            translate: 0px -30px;
+        }
+
+        #footer-info {
+            margin: 0px 150px;
+        }
+
+        #footer-info a {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .boton-contenidos {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            border: 2px solid;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .menu-emergente {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        a {
+            color: #cd5c5c;
+            text-decoration: none;
+        }
+
+        .header-link {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+            height: 100%;
+            padding: 5px 5px;
+            color: #f0f0f1; 
+            display: flex;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .dashicon {
+            font-family: 'dashicons';
+        }
+
+        .header-link:hover, .header-link:focus {
+            color: #72aee6;
+            background-color: #2c3338;
+        }
+
+        .header-link a {
+            color: inherit;
+            background-color: inherit;
+            font-size: 13px;
+        }
+
+        .menu-emergente a {
+            display: block;
+            margin: 5px 0;
+            color: #a51c30;
+            text-decoration: none;
+        }
+
+        .menu-emergente a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="icon" href="https://docs.code-fu.net.ni/wp-content/uploads/2017/10/favicon.png" sizes="32x32">
+</head>
+
+<body>
+    <header id="main-header">
+        <div class="header-link">
+            <span class="dashicon" style="font-size: 20px; translate: 1px -5px;">&#xf226;</span>
+            <a href="https://docs.code-fu.net.ni/wp-admin/" style="margin-left: 5px;">Docs del CS50x.ni</a>
+        </div>
+
+        <div class="header-link">
+            <a href="https://docs.code-fu.net.ni/acceso">Iniciar Sesión</a>
+        </div>
+    </header>
+
+    <div id="page-body">
+        <div id="sidebar">
+            <div id="logo-container">
+                <a href="https://docs.code-fu.net.ni/"> <img
+                        src="https://code-fu.net.ni/wp-content/uploads/2016/09/Code-FU.svg" width="145" height="205"
+                        alt="Docs del CS50x.ni" id="logo"> </a>
+            </div>
+            <div id="navbar">
+                <div class="navbar-link nb-has-children">
+                    <a href="#">CS50X.NI</a>
+                </div>
+
+                <div class="navbar-link nb-has-children">
+                    <a href="#">WEB50X.NI</a>
+                </div>
+
+                <div class="navbar-link nb-has-children">
+                    <a href="#">FERIAS</a>
+                </div>
+
+                <div class="navbar-link">
+                    <a href="https://docs.code-fu.net.ni/reglamento/">REGLAMENTO</a>
+                </div>
+            </div>
+
+            <div id="boton-principal">
+                <a href="http://code-fu.net.ni">PÁGINA PRINCIPAL</a>
+            </div>
+        </div>
+        <div id="main-content">
+            <div class="container">
+                <article>
+                    <div class="entry-content">
+                        <h1 class="psetheader pset-mainheader">Balatro</h1>
+                        <div class="separador"></div>
+
+                        <div class="sectionbody">
+                            <p>Implementa un programa que detecte y asigne puntos a una mano de cartas estilo póker,
+                                dándole más puntos a combinaciones más raras.</p>
+
+                            <div class="listingblock">
+                                <div class="content">
+                                    <pre><code>$ ./balatro
+Carta 1 (ej. AH para As de Corazones): <span>9H</span>
+Carta 2: <span>TH</span>
+Carta 3: <span>JH</span>
+Carta 4: <span>QH</span>
+Carta 5: <span>KH</span>
+
+Escalera de color encontrada: <span>5000 puntos.</span></code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+                        <div class="sect1">
+                            <h2 id="reglas" class="psetheader">Reglas</h2>
+                            <div class="sectionbody">
+                                <ulglas>
+                                    <li>Cada carta es representada por dos caracteres:
+                                        <ul>
+                                            <li>El valor: 2–9, T (10), J, Q, K, A</li>
+                                            <li>El palo: H (♥️), D (♦️), S (♠️), C (♣️)</li>
+                                        </ul>
+                                        Ejemplo: "AH" significa As de Corazones.
+                                    </li>
+                                    </ul>
+
+                                    <h3>Combinaciones y puntos</h3>
+                                    <table>
+                                        <tr>
+                                            <th>Mano de Póker</th>
+                                            <th>Puntos</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Escalera Real</td>
+                                            <td>10000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Escalera de color</td>
+                                            <td>5000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Póker (cuatro iguales)</td>
+                                            <td>3000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Full House</td>
+                                            <td>2000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Color (Flush)</td>
+                                            <td>1500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Escalera</td>
+                                            <td>1000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trío (tres iguales)</td>
+                                            <td>500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dos pares</td>
+                                            <td>300</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Un par</td>
+                                            <td>100</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carta alta</td>
+                                            <td>50</td>
+                                        </tr>
+                                    </table>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+                        <div class="sect1">
+                            <h2 id="consideraciones" class="psetheader">Consideraciones</h2>
+                            <div class="sectionbody" glas>
+                                <ul>
+                                    <li>El programa debe validar que:
+                                        <ul>
+                                            <li>Las cartas sean únicas.</li>
+                                            <li>Tengan formato correcto (valor válido + palo válido).</li>
+                                        </ul>
+                                    </li>
+                                    <li>El programa debe ser modular con funciones como:
+                                        <ul>
+                                            <li><code>es_escalera()</code></li>
+                                            <li><code>es_color()</code></li>
+                                            <li><code>contar_valores()</code></li>
+                                        </ul>
+                                    </li>
+                                    <li>Usa structs para representar cartas:
+                                        <pre><code>typedef struct {
+        int valor;  // 2–14 (donde T=10, J=11, Q=12, K=13, A=14)
+        char palo;  // 'H', 'D', 'S', 'C'
+        } carta;</code></pre>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+                        <div class="sect1">
+                            <h2 id="ejemplos" class="psetheader">Ejemplos de ejecución</h2>
+                            <div class="sectionbody">
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>$ ./balatro
+Carta 1: <span>AH</span>
+Carta 2: <span>KH</span>
+Carta 3: <span>QH</span>
+Carta 4: <span>JH</span>
+Carta 5: <span>TH</span>
+Escalera Real encontrada: <span>10000 puntos.</span></code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>$ ./balatro
+Carta 1: <span>2D</span>
+Carta 2: <span>3H</span>
+Carta 3: <span>4S</span>
+Carta 4: <span>5C</span>
+Carta 5: <span>6D</span>
+Escalera encontrada: <span>1000 puntos.</span></code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>$ ./balatro
+Carta 1: <span>9C</span>
+Carta 2: <span>9D</span>
+Carta 3: <span>9H</span>
+Carta 4: <span>9S</span>
+Carta 5: <span>2D</span>
+Póker encontrado: <span>3000 puntos.</span></code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+                        <div class="sect1">
+                            <h2 id="empezando" class="psetheader"><a href="#empezando">Empezando</a></h2>
+                            <div class="sectionbody">
+                                <p>Abre <a target="_blank" href="https://code.cs50.io/">VS Code</a></p>
+
+                                <p>Comienza haciendo click dentro de la ventana de tu terminal, luego ejecuta
+                                    <code>cd</code> por sí mismo.
+                                </p>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>$</code></pre>
+                                    </div>
+                                </div>
+
+                                <p>Haz clic dentro de esa ventana de terminal y luego escribe</p>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>wget https://cdn.cs50.net/2025/x/balatro.zip</code></pre>
+                                    </div>
+                                </div>
+
+                                <p>seguido de Enter para descargar un ZIP llamado <code>balatro.zip</code> en su espacio
+                                    de código.</p>
+
+                                <p>Ahora ejecuta</p>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>unzip balatro.zip</code></pre>
+                                    </div>
+                                </div>
+
+                                <p>para crear una carpeta llamada <code>balatro</code>. Ya no necesita el archivo ZIP,
+                                    por lo que puede ejecutar</p>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>rm balatro.zip</code></pre>
+                                    </div>
+                                </div>
+
+                                <p>y responda con "y" seguido de Enter en el aviso para eliminar el archivo ZIP que
+                                    descargó.</p>
+
+                                <p>Ahora escribe</p>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>cd balatro</code></pre>
+                                    </div>
+                                </div>
+
+                                <p>para moverte hacia (es decir, abrir) ese directorio. Tu terminal debería parecerse a
+                                    lo siguiente.</p>
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>balatro/ $</code></pre>
+                                    </div>
+                                </div>
+
+                                <p>Si todo salió bien, debes ejecutar.</p>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>ls</code></pre>
+                                    </div>
+                                </div>
+
+                                <p>y ver un archivo llamado <code>balatro.c</code>. La ejecución
+                                    <code>code balatro.c</code> debería abrir el archivo donde escribirá su código para
+                                    este conjunto de problemas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+                        <div class="sect1">
+                            <h2 id="implementacion" class="psetheader">Implementación</h2>
+                            <div class="sectionbody">
+                                <p>Tu archivo <code>balatro.c</code> debe implementar las siguientes funciones:</p>
+
+                                <pre><code>bool es_par(carta mano[]);
+        bool es_dos_pares(carta mano[]);
+        bool es_trio(carta mano[]);
+        bool es_escalera(carta mano[]);
+        bool es_color(carta mano[]);
+        bool es_full_house(carta mano[]);
+        bool es_poker(carta mano[]);
+        bool es_escalera_color(carta mano[]);
+        bool es_escalera_real(carta mano[]);
+        
+        int calcular_puntos(carta mano[]);</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+                        <div class="sect1">
+                            <h2 id="evaluacion" class="psetheader">Evaluación</h2>
+                            <div class="sectionbody">
+                                <p>Tu programa debe:</p>
+                                <ul>
+                                    <li>Validar entradas inválidas.</li>
+                                    <li>Detectar correctamente la mano.</li>
+                                    <li>Asignar el puntaje correcto.</li>
+                                    <li>Imprimir un mensaje como:
+                                        <code>Escalera de color encontrada: 5000 puntos.</code>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+                        <div class="sect1" .separador { border-top: 3px double #ebebeb; margin: 2em 0; }>
+                            <h2 id="entregarlo" class="psetheader">¿Cómo entregarlo?</h2>
+                            <div class="sectionbody">
+                                <p>Abre una terminal y ejecuta lo siguiente:</p>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>submit50 cs50/problems/2025/x/balatro</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="separador"></div>
+                        <div class="sect1" style="margin-top:35px;">
+                            <h2 id="registro-de-cambios" class="psetheader">Registro de cambios</h2>
+                            <div class="sectionbody">
+                                <ul>
+                                    <li>22-07-2025
+                                        <ul>
+                                            <li>Versión Inicial</li>
+                                            <ul>
+                                                <li><a href="http://code-fu.net.ni/staff/#cruiz" target="_blank">Carlos
+                                                        Ruiz</a></li>
+                                            </ul>
+                                            <li>Traducción
+                                                <ul>
+                                                    <li><a href="https://code-fu.net.ni/staff/#emolina"
+                                                            target="_blank">Eloisse Molina</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <button class="boton-contenidos" id="botonmenumostrar">+ Contenidos</button>
+
+                    <nav id="botonmenu" class="menu-emergente" style="display:none;">
+                        <div>Tabla de contenidos:</div>
+                        <a href="#reglas">Reglas</a><br>
+                        <a href="#consideraciones">Consideraciones</a><br>
+                        <a href="#ejemplos">Ejemplos</a><br>
+                        <a href="#empezando">Empezando</a><br>
+                        <a href="#implementacion">Implementación</a><br>
+                        <a href="#evaluacion">Evaluación</a><br>
+                        <a href="#entregarlo">¿Cómo entregarlo?</a><br>
+                        <a href="#registro-de-cambios">Registro de cambios</a>
+                    </nav> -->
+                </article>
+            </div>
+            <div id="main-footer">
+                <div id="footer-info">Designed and powered by <a href="http://fundacionuno.org/"
+                        target="_blank">Fundación
+                        Uno</a> | <a href="mailto:webmaster@code-fu.net.ni">Webmaster</a></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('botonmenumostrar').addEventListener('click', function () {
+            var menu = document.getElementById('botonmenu');
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+                this.textContent = "+ Contenidos";
+            } else {
+                menu.style.display = "block";
+                this.textContent = "- Contenidos";
+            }
+        });
+    </script>
+</body>
+
+</html>
