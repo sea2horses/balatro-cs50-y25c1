@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balatro Y25C1 | Docs del CS50x.ni</title>
-    <link rel="stylesheet" href="dashicons.css"/>
+    <link rel="stylesheet" href="dashicons.css" />
     <style>
         * {
             box-sizing: border-box;
@@ -170,7 +170,6 @@
             font-weight: 500;
             font-family: Georgia, "URW Bookman L", Helvetica, Arial, sans-serif;
             color: #ba3925 !important;
-            padding-bottom: 10px;
         }
 
         h2 {
@@ -214,6 +213,18 @@
             overflow: auto;
         }
 
+        :not(pre)>code {
+            /* white-space: pre-wrap; */
+            font-size: 0.9375em;
+            padding: 1px 3px 0;
+            white-space: nowrap;
+            background-color: #f2f2f2;
+            border: 1px solid #cccccc;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            text-shadow: none;
+        }
+
         #main-footer {
             background-color: #565656;
             color: white;
@@ -255,10 +266,10 @@
         }
 
         .header-link {
-            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
             height: 100%;
             padding: 5px 5px;
-            color: #f0f0f1; 
+            color: #f0f0f1;
             display: flex;
             align-content: center;
             justify-content: center;
@@ -268,7 +279,8 @@
             font-family: 'dashicons';
         }
 
-        .header-link:hover, .header-link:focus {
+        .header-link:hover,
+        .header-link:focus {
             color: #72aee6;
             background-color: #2c3338;
         }
@@ -288,6 +300,12 @@
 
         .menu-emergente a:hover {
             text-decoration: underline;
+        }
+
+        .img-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
     </style>
     <link rel="icon" href="https://docs.code-fu.net.ni/wp-content/uploads/2017/10/favicon.png" sizes="32x32">
@@ -348,13 +366,13 @@
                             <div class="listingblock">
                                 <div class="content">
                                     <pre><code>$ ./balatro
-Carta 1 (ej. AH para As de Corazones): <span>9H</span>
-Carta 2: <span>TH</span>
-Carta 3: <span>JH</span>
-Carta 4: <span>QH</span>
-Carta 5: <span>KH</span>
+Card #1: <span>9H</span>
+Card #2: <span>TH</span>
+Card #3: <span>JH</span>
+Card #4: <span>QH</span>
+Card #5: <span>KH</span>
 
-Escalera de color encontrada: <span>5000 puntos.</span></code></pre>
+Points for play: <span>5000</span></code></pre>
                                 </div>
                             </div>
                         </div>
@@ -362,137 +380,35 @@ Escalera de color encontrada: <span>5000 puntos.</span></code></pre>
                         <div class="separador"></div>
 
                         <div class="sect1">
-                            <h2 id="reglas" class="psetheader">Reglas</h2>
+                            <h2 id="contexto" class="psetheader">Contexto</h2>
+                            En juegos como Balatro o Poker, las combinaciones de cartas no solo dependen del azar, sino
+                            de reconocer patrones complejos entre manos posibles. Mientras que una carta alta tiene poco
+                            valor, una escalera real es extremadamente rara y valiosa.<br><br>
+
+                            Este sistema de puntuación por rareza hace que la estrategia y la probabilidad entren en
+                            juego. En este ejercicio, simularás una mano de poker y determinarás su valor utilizando
+                            lógica en C. Este problema te permitirá practicar structs, arreglos, cadenas de caracteres,
+                            validación de entrada, y sobre todo, el diseño modular por funciones.<br><br>
+
+                            A diferencia de sistemas como elecciones por mayoría de votos, aquí no hay ganadores por
+                            cantidad, sino por la calidad (rareza) de las combinaciones. Tu objetivo es hacer un
+                            programa que detecte combinaciones de poker y asigne puntos como si se tratara de una
+                            partida de Balatro<br><br>
                             <div class="sectionbody">
                                 <ulglas>
-                                    <li>Cada carta es representada por dos caracteres:
+                                    <div>Cada carta es representada por dos caracteres:
                                         <ul>
                                             <li>El valor: 2–9, T (10), J, Q, K, A</li>
-                                            <li>El palo: H (♥️), D (♦️), S (♠️), C (♣️)</li>
+                                            <li>El palo: H (Corazones), D (Diamantes), S (Picas), C (Tréboles)</li>
                                         </ul>
-                                        Ejemplo: "AH" significa As de Corazones.
-                                    </li>
-                                    </ul>
-
-                                    <h3>Combinaciones y puntos</h3>
-                                    <table>
-                                        <tr>
-                                            <th>Mano de Póker</th>
-                                            <th>Puntos</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Escalera Real</td>
-                                            <td>10000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Escalera de color</td>
-                                            <td>5000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Póker (cuatro iguales)</td>
-                                            <td>3000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Full House</td>
-                                            <td>2000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Color (Flush)</td>
-                                            <td>1500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Escalera</td>
-                                            <td>1000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trío (tres iguales)</td>
-                                            <td>500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dos pares</td>
-                                            <td>300</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Un par</td>
-                                            <td>100</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Carta alta</td>
-                                            <td>50</td>
-                                        </tr>
-                                    </table>
-                            </div>
-                        </div>
-
-                        <div class="separador"></div>
-
-                        <div class="sect1">
-                            <h2 id="consideraciones" class="psetheader">Consideraciones</h2>
-                            <div class="sectionbody" glas>
-                                <ul>
-                                    <li>El programa debe validar que:
-                                        <ul>
-                                            <li>Las cartas sean únicas.</li>
-                                            <li>Tengan formato correcto (valor válido + palo válido).</li>
-                                        </ul>
-                                    </li>
-                                    <li>El programa debe ser modular con funciones como:
-                                        <ul>
-                                            <li><code>es_escalera()</code></li>
-                                            <li><code>es_color()</code></li>
-                                            <li><code>contar_valores()</code></li>
-                                        </ul>
-                                    </li>
-                                    <li>Usa structs para representar cartas:
-                                        <pre><code>typedef struct {
-        int valor;  // 2–14 (donde T=10, J=11, Q=12, K=13, A=14)
-        char palo;  // 'H', 'D', 'S', 'C'
-        } carta;</code></pre>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="separador"></div>
-
-                        <div class="sect1">
-                            <h2 id="ejemplos" class="psetheader">Ejemplos de ejecución</h2>
-                            <div class="sectionbody">
-                                <div class="listingblock">
-                                    <div class="content">
-                                        <pre><code>$ ./balatro
-Carta 1: <span>AH</span>
-Carta 2: <span>KH</span>
-Carta 3: <span>QH</span>
-Carta 4: <span>JH</span>
-Carta 5: <span>TH</span>
-Escalera Real encontrada: <span>10000 puntos.</span></code></pre>
+                                        Ejemplo: "AH" significa As de Corazones o "9H" significa 9 de Corazones. En ese
+                                        caso, 10 de Picas por ejemplo, se representaría como "10S", pero para
+                                        simplificar el ejercicio, el 10 se representará con la letra T (entonces 10 de
+                                        Picas es "TS").
+                                    </div><br>
+                                    A continuación la tabla representando que jugada marca cuantos puntos:
+                                    <div class="img-container"><img src="assets/Tabla.png" alt="Tabla de Jugadas" />
                                     </div>
-                                </div>
-
-                                <div class="listingblock">
-                                    <div class="content">
-                                        <pre><code>$ ./balatro
-Carta 1: <span>2D</span>
-Carta 2: <span>3H</span>
-Carta 3: <span>4S</span>
-Carta 4: <span>5C</span>
-Carta 5: <span>6D</span>
-Escalera encontrada: <span>1000 puntos.</span></code></pre>
-                                    </div>
-                                </div>
-
-                                <div class="listingblock">
-                                    <div class="content">
-                                        <pre><code>$ ./balatro
-Carta 1: <span>9C</span>
-Carta 2: <span>9D</span>
-Carta 3: <span>9H</span>
-Carta 4: <span>9S</span>
-Carta 5: <span>2D</span>
-Póker encontrado: <span>3000 puntos.</span></code></pre>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -517,7 +433,7 @@ Póker encontrado: <span>3000 puntos.</span></code></pre>
 
                                 <div class="listingblock">
                                     <div class="content">
-                                        <pre><code>wget https://cdn.cs50.net/2025/x/balatro.zip</code></pre>
+                                        <pre><code>wget https://github.com/sea2horses/balatro-cs50-y25c1/blob/main/balatro.zip</code></pre>
                                     </div>
                                 </div>
 
@@ -576,41 +492,146 @@ Póker encontrado: <span>3000 puntos.</span></code></pre>
                         </div>
 
                         <div class="separador"></div>
-
                         <div class="sect1">
-                            <h2 id="implementacion" class="psetheader">Implementación</h2>
-                            <div class="sectionbody">
-                                <p>Tu archivo <code>balatro.c</code> debe implementar las siguientes funciones:</p>
+                            <h2 id="comprendiendo" class="psetheader">Comprendiendo</h2>
+                            <p>
+                                Echémosle un vistazo a <code>balatro.c</code>. Se define una constante llamada
+                                <code>HAND_SIZE</code>, que representa el número total de cartas en una mano de póker
+                                (en este caso, 5). Luego, encontramos una estructura <code>card</code>, que modela una
+                                carta del mazo. Cada carta tiene un valor entero <code>value</code>, que representa su
+                                rango (del 2 al 14, donde T = 10, J = 11, Q = 12, K = 13 y A = 14), y un carácter
+                                <code>suit</code> que indica su palo: <code>'S'</code> para espadas, <code>'H'</code>
+                                para corazones, <code>'C'</code> para tréboles y <code>'D'</code> para diamantes.
+                            </p>
 
-                                <pre><code>bool es_par(carta mano[]);
-        bool es_dos_pares(carta mano[]);
-        bool es_trio(carta mano[]);
-        bool es_escalera(carta mano[]);
-        bool es_color(carta mano[]);
-        bool es_full_house(carta mano[]);
-        bool es_poker(carta mano[]);
-        bool es_escalera_color(carta mano[]);
-        bool es_escalera_real(carta mano[]);
-        
-        int calcular_puntos(carta mano[]);</code></pre>
-                            </div>
+                            <p>
+                                El arreglo global <code>cards</code> de tipo <code>card</code> guarda las cinco cartas
+                                que el jugador va ingresando. En la función <code>main</code>, se solicita al usuario
+                                que introduzca una a una las 5 cartas. Para cada entrada, se llama a la función
+                                <code>validate_card</code>, que debe verificar que la carta ingresada tenga un formato
+                                válido (por ejemplo, <code>"9H"</code> o <code>"AD"</code>) y que no se repita.
+                            </p>
+
+                            <p>
+                                Luego de validar la entrada, se crea una nueva carta. Su valor se determina con la
+                                función <code>get_value_from_letter</code>, que debe traducir letras como
+                                <code>'T'</code>, <code>'Q'</code>, <code>'A'</code>, etc., a su valor numérico
+                                correspondiente. Esa carta se almacena en el arreglo <code>cards</code>.
+                            </p>
+
+                            <p>
+                                Una vez registradas todas las cartas, el programa llama a la función
+                                <code>calculate_points</code>, que debe evaluar la mejor combinación de póker entre las
+                                cinco cartas ingresadas y retornar el puntaje correspondiente. Dentro de esta función,
+                                ya se proporciona una estructura que cuenta cuántas veces aparece cada valor y cuántas
+                                veces aparece cada palo, lo cual es útil para determinar combinaciones como par, trío,
+                                color, etc. Finalmente, se imprime en pantalla la cantidad de puntos obtenidos por esa
+                                jugada.
+                            </p>
+
+                            <p>
+                                Más abajo en el archivo verás que las funciones <code>get_value_from_letter</code>,
+                                <code>validate_card</code>, y <code>calculate_points</code> aún no están completas. ¡Te
+                                toca a ti implementarlas! Tu objetivo es asegurarte de que el programa pueda detectar
+                                combinaciones de póker como pares, escaleras, full house o incluso escalera real, y que
+                                devuelva correctamente su puntaje en base a la rareza de cada jugada.
+                            </p>
+
                         </div>
 
                         <div class="separador"></div>
 
                         <div class="sect1">
-                            <h2 id="evaluacion" class="psetheader">Evaluación</h2>
+                            <h2 id="implementacion" class="psetheader">Implementación</h2>
+                            <p>Completa la implementación del programa para que analice una mano de póker de
+                                <code>5</code> cartas introducidas por el usuario, valide su formato, y calcule
+                                correctamente los puntos obtenidos según la rareza de la jugada (como pares, tríos, full
+                                house, etc.).</p>
+
+                            <p>No debes modificar la función <code>main</code>. Solo debes implementar las siguientes
+                                funciones:</p>
+
+                            <p><code>is_digit</code>: Verifica si un carácter dado es un dígito (0–9). Esta función será
+                                útil para validar que la parte numérica de la carta es válida.</p>
+
+                            <p><code>validate_card</code>: Verifica que la carta ingresada tenga un valor y palo
+                                válidos. Por ejemplo, <code>TH</code> sería válido (T = 10, H = corazones), mientras que
+                                <code>1Z</code> no lo sería.</p>
+
+                            <p><code>calculate_points</code>: Analiza el arreglo global de cartas ya válidas y devuelve
+                                la puntuación correspondiente según las reglas del póker. Por ejemplo, un par puede
+                                valer 1 punto, una escalera 4, y una mano con cinco cartas del mismo palo 5 o más,
+                                dependiendo de la implementación.</p>
+
+                        </div>
+
+                        <div class="separador"></div>
+                        <div class="sect1">
+                            <h2 id="uso" class="psetheader">Uso</h2>
+                            Tu programa debería comportarse como los ejemplos siguientes:
                             <div class="sectionbody">
-                                <p>Tu programa debe:</p>
-                                <ul>
-                                    <li>Validar entradas inválidas.</li>
-                                    <li>Detectar correctamente la mano.</li>
-                                    <li>Asignar el puntaje correcto.</li>
-                                    <li>Imprimir un mensaje como:
-                                        <code>Escalera de color encontrada: 5000 puntos.</code>
-                                    </li>
-                                </ul>
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>$ ./balatro
+Card #1: <span>AH</span>
+Card #2: <span>KH</span>
+Card #3: <span>QH</span>
+Card #4: <span>JH</span>
+Card #5: <span>TH</span>
+Points for play: <span>10000</span></code></pre>
+                                    </div>
+                                    (Escalera Real)
+                                </div>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>$ ./balatro
+Card #1: <span>2D</span>
+Card #2: <span>3H</span>
+Card #3: <span>4S</span>
+Card #4: <span>5C</span>
+Card #5: <span>6D</span>
+Points for play: <span>1000</span></code></pre>
+                                    </div>
+                                    (Escalera)
+                                </div>
+
+                                <div class="listingblock">
+                                    <div class="content">
+                                        <pre><code>$ ./balatro
+Card #1: <span>9C</span>
+Card #2: <span>9D</span>
+Card #3: <span>9H</span>
+Card #4: <span>9S</span>
+Card #5: <span>2D</span>
+Points for play: <span>3000</span></code></pre>
+                                    </div>
+                                    (Póker)
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="separador"></div>
+
+
+
+                        <div class="sect1">
+                            <h2 class="psetheader">Probando</h2>
+                            <div>
+                                Asegúrate de probar tu código y que no haya ningún error. Garantiza que tu código cumpla
+                                con las siguientes especificaciones:
+                                <ul>
+                                    <li>Validar el valor (2-9 o T J Q K A) y palo de la carta</li>
+                                    <li>Validar el tamaño de la carta (exactamente 2 caracteres)</li>
+                                    <li>Verificar que no existan cartas repetidas</li>
+                                    <li>Calcular correctamente la mano y el puntaje por jugada</li>
+                                </ul>
+                                Ejecuta lo siguiente para evaluar la exactitud de tu código usando <code>check50</code>.
+                                ¡Pero asegúrate de compilarlo y probarlo por ti mismo también!
+                            </div>
+                            <pre><code>check50 sea2horses/balatro-cs50-y25c1/main/check</code></pre>
+                            Ejecuta lo siguiente para evaluar el estilo de su código usando <code>style50</code>.
+                            <pre><code>style50 balatro.c</code></pre>
                         </div>
 
                         <div class="separador"></div>
@@ -618,13 +639,15 @@ Póker encontrado: <span>3000 puntos.</span></code></pre>
                         <div class="sect1" .separador { border-top: 3px double #ebebeb; margin: 2em 0; }>
                             <h2 id="entregarlo" class="psetheader">¿Cómo entregarlo?</h2>
                             <div class="sectionbody">
-                                <p>Abre una terminal y ejecuta lo siguiente:</p>
+                                <p>Debido a problemas actuales con GitHub y submit50, no hay un comando para enviarlo,
+                                    pero si quieres enviamelo a <a
+                                        href="mailto:sea2horses@gmail.com">sea2horses@gmail.com</a></p>
 
-                                <div class="listingblock">
+                                <!-- <div class="listingblock">
                                     <div class="content">
                                         <pre><code>submit50 cs50/problems/2025/x/balatro</code></pre>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -637,15 +660,9 @@ Póker encontrado: <span>3000 puntos.</span></code></pre>
                                         <ul>
                                             <li>Versión Inicial</li>
                                             <ul>
-                                                <li><a href="http://code-fu.net.ni/staff/#cruiz" target="_blank">Carlos
-                                                        Ruiz</a></li>
+                                                <li><a href="http://github.com/sea2horses" target="_blank">D. Meza</a>
+                                                </li>
                                             </ul>
-                                            <li>Traducción
-                                                <ul>
-                                                    <li><a href="https://code-fu.net.ni/staff/#emolina"
-                                                            target="_blank">Eloisse Molina</a></li>
-                                                </ul>
-                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

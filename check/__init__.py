@@ -38,16 +38,23 @@ def mixed_case_input():
 
 @check50.check(compiles)
 def invalid_card_length():
-    """Handles invalid card length"""
+    """Handles invalid card length (only 1)"""
     check50.run("./balatro") \
         .stdin("QH").stdin("KD").stdin("Z").stdout("Card #3").stdin("9C").stdin("TH").stdin("4H") \
+        .stdout("Points for play: 50").exit(0)
+
+@check50.check(compiles)
+def invalid_card_length2():
+    """Handles invalid card length (more than 2)"""
+    check50.run("./balatro") \
+        .stdin("QH").stdin("KD").stdin("2HH").stdout("Card #3").stdin("9C").stdin("TH").stdin("4H") \
         .stdout("Points for play: 50").exit(0)
 
 @check50.check(compiles)
 def invalid_value_letter():
     """Handles invalid value letter"""
     check50.run("./balatro") \
-        .stdin("QH").stdin("KD").stdin("ZC").stdout("Card #3").stdin("9C").stdin("TH").stdin("4H") \
+        .stdin("QH").stdin("KD").stdin("1C").stdout("Card #3").stdin("9C").stdin("TH").stdin("4H") \
         .stdout("Points for play: 50").exit(0)
 
 @check50.check(compiles)
