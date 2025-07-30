@@ -15,7 +15,7 @@ typedef struct
 card cards[HAND_SIZE];
 
 // Function prototypes
-bool get_value_from_letter(char c);
+int get_value_from_letter(char c);
 bool validate_card(string card);
 int calculate_points();
 
