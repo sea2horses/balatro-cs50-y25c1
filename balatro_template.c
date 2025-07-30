@@ -73,32 +73,6 @@ bool validate_card(string card)
 // Return the point value of the card combination in cards[]
 int calculate_points()
 {
-  // Count occurrences per value
-  int values[15] = {0}; // 2 - 14
-  for (int i = 0; i < HAND_SIZE; i++)
-    values[cards[i].value]++;
-
-  // Count occurrences per suit
-  int suits[4] = {0}; // 0:S, 1:H, 2:D, 3:C
-  for (int i = 0; i < HAND_SIZE; i++)
-  {
-    switch (cards[i].suit)
-    {
-    case 'S':
-      suits[0]++;
-      break;
-    case 'H':
-      suits[1]++;
-      break;
-    case 'D':
-      suits[2]++;
-      break;
-    case 'C':
-      suits[3]++;
-      break;
-    }
-  }
-
   // TODO: Calculate best combination
   return 0;
 }
