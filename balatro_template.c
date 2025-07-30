@@ -53,7 +53,7 @@ int main(void)
 // 'A' -> 14
 // '0' -> -1
 // 'Z' -> -1
-bool get_value_from_letter(char c)
+int get_value_from_letter(char c)
 {
   return -1;
 }
